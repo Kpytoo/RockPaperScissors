@@ -3,7 +3,7 @@ console.log("Game has begun!");
 //Keeping score
 let humanScore = 0;
 let computerScore = 0;
-const btn = document.querySelector("#btn_rock");
+const btn = document.querySelector("#choice");
 
 
 //Computer Logic
@@ -22,11 +22,6 @@ let getComputerChoice = () => {
     return (compChoice);
 }
 
-//Human Logic
-let getHumanChoice = () =>{
-    let humanChoice = prompt("Enter \"Rock\", \"Paper\" or \"Scissors\"");
-    return humanChoice;
-}
 
 //Round Logic
 let playRound = (compChoice, humanChoice) => {
@@ -55,7 +50,8 @@ let playRound = (compChoice, humanChoice) => {
 
 //Event listeners for button
 btn.addEventListener("click", function(e) {
-    playRound(getComputerChoice(), btn.textContent);
+    console.log(e.target.textContent);
+    playRound(getComputerChoice(), e.target.textContent); // "e" is the div, target is the button clicked, textContent is the text of that button (think bubbling)
     if(humanScore === 5 || computerScore === 5){
         if (computerScore > humanScore){
             console.log("Computer wins! Better luck next time.");
