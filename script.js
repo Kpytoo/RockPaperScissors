@@ -1,5 +1,11 @@
 console.log("Game has begun!");
 
+//Keeping score
+let humanScore = 0;
+let computerScore = 0;
+const btn = document.querySelector("#btn_rock");
+
+
 //Computer Logic
 let getComputerChoice = () => {
     let randomNum = Math.random();
@@ -22,53 +28,42 @@ let getHumanChoice = () =>{
     return humanChoice;
 }
 
+//Round Logic
+let playRound = (compChoice, humanChoice) => {
+    console.log("Computer has played: " + compChoice);
+    console.log("Player has played: " + humanChoice.toUpperCase());
 
-//Game Logic
-let playGame = () =>{
-
-    //Keeping score
-    let humanScore = 0;
-    let computerScore = 0;
-
-    //Round Logic
-    let playRound = (compChoice, humanChoice) => {
-        console.log("Computer has played: " + compChoice);
-        console.log("Player has played: " + humanChoice.toUpperCase());
-
-        //If both play the same
-        if (compChoice === humanChoice.toUpperCase()){ 
-            console.log("Round is a tie!");
-        }
-        //If computer wins
-        else if ((compChoice === "ROCK" && humanChoice.toUpperCase() === "SCISSORS") ||
-                (compChoice === "PAPER" && humanChoice.toUpperCase() === "ROCK") ||
-                (compChoice === "SCISSORS" && humanChoice.toUpperCase() === "PAPER")){
-            console.log("You lose! Computer beats "+ humanChoice.toUpperCase() +" with "+ compChoice +"!");
-            computerScore++;
-        }
-        //If player wins
-        else {
-            console.log("You win! Player beats "+ compChoice +" with "+ humanChoice.toUpperCase() +"!");
-            humanScore++;
-        }
+    //If both play the same
+    if (compChoice === humanChoice.toUpperCase()){ 
+        console.log("Round is a tie!");
     }
-
-    
-    playRound(getComputerChoice(), getHumanChoice());
-    console.log("Score: [Computer - "+ computerScore +"] [Player - "+ humanScore +"]");
-    
-
-    console.log("End of the game!")
-    if (computerScore == humanScore){
-        console.log("The game is a tie! Thank you for playing.");
+    //If computer wins
+    else if ((compChoice === "ROCK" && humanChoice.toUpperCase() === "SCISSORS") ||
+            (compChoice === "PAPER" && humanChoice.toUpperCase() === "ROCK") ||
+            (compChoice === "SCISSORS" && humanChoice.toUpperCase() === "PAPER")){
+        console.log("You lose! Computer beats "+ humanChoice.toUpperCase() +" with "+ compChoice +"!");
+        computerScore++;
     }
-    else if (computerScore > humanScore){
-        console.log("Computer wins! Better luck next time.");
-    }
+    //If player wins
     else {
-        console.log("You win! Thank you for playing.");
+        console.log("You win! Player beats "+ compChoice +" with "+ humanChoice.toUpperCase() +"!");
+        humanScore++;
     }
+
+    console.log("Score: [Computer - "+ computerScore +"] [Player - "+ humanScore +"]");
 }
 
-//Start the game
-playGame();
+//Event listeners for button
+btn.addEventListener("click", function(e) {
+    playRound(getComputerChoice(), btn.textContent);
+    if(humanScore === 5 || computerScore === 5){
+        if (computerScore > humanScore){
+            console.log("Computer wins! Better luck next time.");
+        }
+        else {
+            console.log("You win! Thank you for playing.");
+        }
+        computerScore = 0;
+        humanScore = 0;
+    }
+});
