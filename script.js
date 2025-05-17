@@ -53,10 +53,10 @@ let playGame = () =>{
         }
     }
 
-    for (let i = 0; i < 5; i++){
-        playRound(getComputerChoice(), getHumanChoice());
-        console.log("Score: [Computer - "+ computerScore +"] [Player - "+ humanScore +"]");
-    }
+    
+    playRound(getComputerChoice(), getHumanChoice());
+    console.log("Score: [Computer - "+ computerScore +"] [Player - "+ humanScore +"]");
+    
 
     console.log("End of the game!")
     if (computerScore == humanScore){
