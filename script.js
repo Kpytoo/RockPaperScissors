@@ -1,9 +1,10 @@
-console.log("Game has begun!");
-
 //Keeping score
 let humanScore = 0;
 let computerScore = 0;
 const btn = document.querySelector("#choice");
+const result = document.querySelector("#result");
+const score = document.querySelector("#score");
+const end_message = document.querySelector("#end_message");
 
 
 //Computer Logic
@@ -25,27 +26,30 @@ let getComputerChoice = () => {
 
 //Round Logic
 let playRound = (compChoice, humanChoice) => {
+
+    end_message.textContent = "";
+
     console.log("Computer has played: " + compChoice);
     console.log("Player has played: " + humanChoice.toUpperCase());
 
     //If both play the same
     if (compChoice === humanChoice.toUpperCase()){ 
-        console.log("Round is a tie!");
+        result.textContent = "Round is a tie!";
     }
     //If computer wins
     else if ((compChoice === "ROCK" && humanChoice.toUpperCase() === "SCISSORS") ||
             (compChoice === "PAPER" && humanChoice.toUpperCase() === "ROCK") ||
             (compChoice === "SCISSORS" && humanChoice.toUpperCase() === "PAPER")){
-        console.log("You lose! Computer beats "+ humanChoice.toUpperCase() +" with "+ compChoice +"!");
+        result.textContent = "You lose! Computer beats "+ humanChoice.toUpperCase() +" with "+ compChoice +"!";
         computerScore++;
     }
     //If player wins
     else {
-        console.log("You win! Player beats "+ compChoice +" with "+ humanChoice.toUpperCase() +"!");
+        result.textContent = "You win! Player beats "+ compChoice +" with "+ humanChoice.toUpperCase() +"!";
         humanScore++;
     }
 
-    console.log("Score: [Computer - "+ computerScore +"] [Player - "+ humanScore +"]");
+    score.textContent = "Score: [Computer - "+ computerScore +"] [Player - "+ humanScore +"]";
 }
 
 //Event listeners for button
@@ -54,10 +58,11 @@ btn.addEventListener("click", function(e) {
     playRound(getComputerChoice(), e.target.textContent); // "e" is the div, target is the button clicked, textContent is the text of that button (think bubbling)
     if(humanScore === 5 || computerScore === 5){
         if (computerScore > humanScore){
-            console.log("Computer wins! Better luck next time.");
+            end_message.textContent = "Computer wins! Better luck next time.";
+
         }
         else {
-            console.log("You win! Thank you for playing.");
+            end_message.textContent = "You win! Thank you for playing.";
         }
         computerScore = 0;
         humanScore = 0;
